@@ -42,7 +42,7 @@ function Sidebar({ }: SidebarProps) {
                                 href={route.link}
                                 className={cn(
                                     "flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8",
-                                    pathname.startsWith(route.link) && "bg-accent text-accent-foreground"
+                                    ((route.isMain == true && route.link == pathname) ||(route.isMain !== true  && pathname.startsWith(route.link) ) )&& "bg-accent text-accent-foreground"
                                 )}
                             >
                                 <route.Icon className="h-5 w-5" />

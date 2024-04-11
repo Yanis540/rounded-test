@@ -43,6 +43,7 @@ interface NavbarProps {
 
 function Navbar({ }: NavbarProps) {
     const pathname= usePathname()
+    console.log(pathname.startsWith('/calls'))
     return (
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
             <Sheet>
@@ -62,12 +63,12 @@ function Navbar({ }: NavbarProps) {
                              <span className="sr-only">Acme Inc</span>
                          </Link>
                         {routes.map((route,i)=>(
-                             <Link
+                            <Link
                              href={route.link}
                              key={route.link}
                              className={cn(
                                 "flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground",
-                                pathname.startsWith(route.link) && "text-foreground"
+                                ((route.isMain == true && route.link == pathname) ||(route.isMain !== true  && pathname.startsWith(route.link) ) )&& "text-foreground"
                             )}
                          >
                              <route.Icon className="h-5 w-5 transition-all group-hover:scale-110" />

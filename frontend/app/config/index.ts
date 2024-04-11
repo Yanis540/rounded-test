@@ -9,12 +9,14 @@ import {
 export const routes : {
     title:string,
     Icon : LucideIcon,
-    link : string
+    link : string,
+    isMain ?:boolean
 }[] = [
     {
         title: "Dashboard",
         Icon: Home ,
         link : "/",
+        isMain : true
     },
     {
         title: "Calls",
