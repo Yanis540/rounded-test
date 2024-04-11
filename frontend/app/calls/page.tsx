@@ -20,9 +20,13 @@ import CallsDashboardHeader from "./components/CallsDashboardHeader"
 import CallsTable from "./components/CallsTable"
 import { useFetchCalls } from "./hooks/use-fetch-calls"
 import { Icons } from "@/components/icons"
+import { tabsValues } from "./type"
+import { useState } from "react"
 
 export default function Dashboard() {
     const {data,isLoading,error,fetch} = useFetchCalls("+33123456789")
+    const [activeTab,setActiveTab] = useState<string>("all");
+    const handleChangeActiveTab = (v:string)=>{setActiveTab(v)}
     if(isLoading) return (
         <AuthenticatedLayout>
             <div className="flex flex-col h-full w-full items-center justify-center">
@@ -38,27 +42,32 @@ export default function Dashboard() {
   return (
     <AuthenticatedLayout>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-          <Tabs className="flex-1 h-full" defaultValue="all">
+          <Tabs className="flex-1 h-full" defaultValue="all" onValueChange={handleChangeActiveTab}>
             <CallsDashboardHeader fetch={fetch}  /> 
-            <TabsContent value="all">
-              <Card x-chunk="dashboard-06-chunk-0">
-                <CardHeader>
-                  <CardTitle>Appels</CardTitle>
-                  <CardDescription>
-                    Gérer tous vos appels. 
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <CallsTable />
-                </CardContent>
-                <CardFooter>
-                  <div className="text-xs text-muted-foreground">
-                    Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                    products
-                  </div>
-                </CardFooter>
-              </Card>
-            </TabsContent>
+            {
+                tabsValues.map((t)=>(
+
+                <TabsContent key={t.key}  value={t.key}>
+                    <Card x-chunk="dashboard-06-chunk-0">
+                        <CardHeader>
+                        <CardTitle>Appels</CardTitle>
+                        <CardDescription>
+                            Gérer tous vos appels. 
+                        </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <CallsTable value={t.key} activeTab={activeTab} filter={t.filter} />
+                        </CardContent>
+                        <CardFooter>
+                        <div className="text-xs text-muted-foreground">
+                            Showing <strong>1-10</strong> of <strong>32</strong>{" "}
+                            products
+                        </div>
+                        </CardFooter>
+                    </Card>
+                </TabsContent>
+                ))
+            }
           </Tabs>
         </main>
     </AuthenticatedLayout>

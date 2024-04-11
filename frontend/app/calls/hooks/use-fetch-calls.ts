@@ -36,7 +36,7 @@ export const useFetchCalls = (to:string)=>{
     })
     useEffect(()=>{
         mutate();
-    },[])
+    },[mutate])
 
 
 

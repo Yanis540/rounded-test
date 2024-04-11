@@ -24,17 +24,27 @@ import {
 } from "@/components/ui/table"
 import CallsTableRow from "./CallsTableRow"
 import { useCallsStore } from "../state/use-calls-store"
+import { useEffect, useMemo } from "react"
 interface CallsTableProps {
-
+    filter?:(c:Call[])=>Call[]
+    value:string
+    activeTab : string
 };
 
-function CallsTable({}:CallsTableProps) {
-    const {calls} = useCallsStore();
+function CallsTable({value,activeTab,filter}:CallsTableProps) {
+    const {filtered_calls,set_filtered} = useCallsStore();
+    const isActive = useMemo(()=>activeTab== value,[activeTab])
+    useEffect(()=>{
+        if(isActive)
+            set_filtered(filter)
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[isActive])
+    
     return (
         <Table>
             <TableHeader>
                 <TableRow>
-                    
                     <TableHead>Date</TableHead>
                     <TableHead>Appealant</TableHead>
                     <TableHead>Durée</TableHead>
@@ -46,7 +56,7 @@ function CallsTable({}:CallsTableProps) {
             </TableHeader>
             <TableBody>
                 {
-                    calls?.map((call,i)=>(
+                    filtered_calls?.map((call,i)=>(
                         <CallsTableRow key={call.from+"-"+i} call={call} />
                     ))
                 }
