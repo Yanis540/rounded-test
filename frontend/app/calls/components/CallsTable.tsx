@@ -23,11 +23,13 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import CallsTableRow from "./CallsTableRow"
+import { useCallsStore } from "../state/use-calls-store"
 interface CallsTableProps {
 
 };
 
 function CallsTable({}:CallsTableProps) {
+    const {calls} = useCallsStore();
     return (
         <Table>
             <TableHeader>
@@ -43,7 +45,11 @@ function CallsTable({}:CallsTableProps) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <CallsTableRow />
+                {
+                    calls?.map((call,i)=>(
+                        <CallsTableRow key={call.from+"-"+i} call={call} />
+                    ))
+                }
             </TableBody>
         </Table>
     );

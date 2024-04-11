@@ -23,12 +23,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-
+import moment from "moment"
 interface CallsTableRowProps {
-
+    call : Call
 };
 
-function CallsTableRow({}:CallsTableRowProps) {
+function CallsTableRow({call}:CallsTableRowProps) {
     const [open, setOpen] = useState<boolean>(false)
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const openTrigger = ()=>setOpen(true)
@@ -36,13 +36,13 @@ function CallsTableRow({}:CallsTableRowProps) {
         return (
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Row open={openTrigger} /> 
+              <Row call={call}open={openTrigger} /> 
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px] border-none">
               <DialogHeader>
-                <DialogTitle>Détails de l&apos;appel</DialogTitle>
+                <DialogTitle>Détails de l&apos;appel {call.from} {moment(call.date,"YYYYMMDD").local().calendar()}</DialogTitle>
                 <DialogDescription>
-                  Make changes to your profile here. Click save when you&apos;re done.
+                    {call.summary}
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
@@ -52,13 +52,13 @@ function CallsTableRow({}:CallsTableRowProps) {
     return (
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Row open={openTrigger}/>
+            <Row call={call}open={openTrigger}/>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader className="text-left">
-              <DrawerTitle>Détails de l&apos;appel</DrawerTitle>
+              <DrawerTitle>Détails de l&apos;appel {call.from} {moment(call.date,"YYYYMMDD").local().calendar()}</DrawerTitle>
               <DrawerDescription>
-                Make changes to your profile here. Click save when you&aposre done.
+              { call.summary}
               </DrawerDescription>
             </DrawerHeader>
             <DrawerFooter className="pt-2">
@@ -72,20 +72,29 @@ function CallsTableRow({}:CallsTableRowProps) {
    
 };
 
-function Row({open} : {open:()=>void}){
+function Row({call,open} : {call:Call,open:()=>void}){
+    const duration  = moment.utc(call.duration*1000).format('HH:mm:ss')
+    const callDate= moment(call.date,"YYYYMMDD").local().calendar({
+        sameDay: '[Today] [at] HH:mm:ss',
+        lastDay: '[Yesterday] [at] HH:mm:ss',
+        sameElse: 'DD/MM/YYYY [at] HH:mm:ss'
+    })
     return (
     <TableRow onClick={open}>
         <TableCell className="font-medium">
-            Aujourdhui à 14h00 
+            {callDate}
         </TableCell>
         <TableCell className="font-medium">
-            +33 744744308
+            {call.from}
+        </TableCell>
+        <TableCell className="font-medium ">
+            {/* 7m 32s */}
+            <div className="px-1 py-2 w-min bg-primary rounded-xl">
+                {duration}
+            </div>
         </TableCell>
         <TableCell className="font-medium">
-            7m 32s
-        </TableCell>
-        <TableCell className="font-medium">
-            Renseignment
+            {call.subject}
         </TableCell>
         <TableCell>
             <DropdownMenu>

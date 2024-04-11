@@ -1,4 +1,4 @@
-
+'use client'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -18,8 +18,24 @@ import {
 import AuthenticatedLayout from "@/Layout/AuthenticatedLayout"
 import CallsDashboardHeader from "./components/CallsDashboardHeader"
 import CallsTable from "./components/CallsTable"
+import { useFetchCalls } from "./hooks/use-fetch-calls"
+import { Icons } from "@/components/icons"
 
 export default function Dashboard() {
+    const {data,isLoading,error,fetch} = useFetchCalls("+33123456789")
+    console.log(data,isLoading,error)
+    if(isLoading) return (
+        <AuthenticatedLayout>
+            <div className="flex flex-col h-full w-full items-center justify-center">
+                <Icons.spinner className="text-primary" />
+            </div>
+        </AuthenticatedLayout>
+    ) ;
+    if(error) return (
+        <AuthenticatedLayout>
+            <h2 className="text-xl text-red-500 flex flex-col items-center justify-center">An unexpected error occured!</h2>;
+        </AuthenticatedLayout>
+    ) ;
   return (
     <AuthenticatedLayout>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
