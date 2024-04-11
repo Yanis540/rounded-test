@@ -11,7 +11,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { routes } from "@/app/config"
+import { routes } from "@/config"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 

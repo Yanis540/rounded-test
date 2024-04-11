@@ -2,11 +2,11 @@ import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 import React, { ReactNode } from 'react';
 
-interface AuthenticatedDashboardLayoutProps {
+interface AuthenticatedLayoutProps {
     children : ReactNode
 };
 
-function AuthenticatedDashboardLayout({children}:AuthenticatedDashboardLayoutProps) {
+function AuthenticatedLayout({children}:AuthenticatedLayoutProps) {
     return (
     <div className="flex min-h-screen w-full flex-col bg-muted/5">
         <Sidebar /> 
@@ -18,4 +18,4 @@ function AuthenticatedDashboardLayout({children}:AuthenticatedDashboardLayoutPro
     );
 };
 
-export default AuthenticatedDashboardLayout;
+export default AuthenticatedLayout;
