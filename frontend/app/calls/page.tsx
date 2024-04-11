@@ -23,7 +23,6 @@ import { Icons } from "@/components/icons"
 
 export default function Dashboard() {
     const {data,isLoading,error,fetch} = useFetchCalls("+33123456789")
-    console.log(data,isLoading,error)
     if(isLoading) return (
         <AuthenticatedLayout>
             <div className="flex flex-col h-full w-full items-center justify-center">
@@ -40,7 +39,7 @@ export default function Dashboard() {
     <AuthenticatedLayout>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Tabs className="flex-1 h-full" defaultValue="all">
-            <CallsDashboardHeader /> 
+            <CallsDashboardHeader fetch={fetch}  /> 
             <TabsContent value="all">
               <Card x-chunk="dashboard-06-chunk-0">
                 <CardHeader>

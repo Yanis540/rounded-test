@@ -5,6 +5,7 @@ import {
   ListFilter,
   MoreHorizontal,
   PlusCircle,
+  RefreshCcw,
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -42,10 +43,11 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 interface CallsDashboardHeaderProps {
-
+    fetch : ()=>void
 };
 
-function CallsDashboardHeader({ }: CallsDashboardHeaderProps) {
+function CallsDashboardHeader({ fetch}: CallsDashboardHeaderProps) {
+
     return (
         <div className="flex items-center">
             <TabsList>
@@ -78,6 +80,7 @@ function CallsDashboardHeader({ }: CallsDashboardHeaderProps) {
                         </DropdownMenuCheckboxItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+           
                 <Button size="sm" variant="outline" className="h-8 gap-1">
                     <File className="h-3.5 w-3.5" />
                     <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
@@ -88,6 +91,12 @@ function CallsDashboardHeader({ }: CallsDashboardHeaderProps) {
                     <PlusCircle className="h-3.5 w-3.5" />
                     <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                         Add Product
+                    </span>
+                </Button>
+                <Button size="sm"  className="h-8 gap-1" onClick={fetch}>
+                    <RefreshCcw className="h-3.5 w-3.5 " />
+                    <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                        Refresh
                     </span>
                 </Button>
             </div>
