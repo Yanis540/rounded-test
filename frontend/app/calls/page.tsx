@@ -47,8 +47,8 @@ export default function Dashboard() {
             {
                 tabsValues.map((t)=>(
 
-                <TabsContent key={t.key}  value={t.key}>
-                    <Card x-chunk="dashboard-06-chunk-0">
+                <TabsContent key={t.key}  value={t.key} className="">
+                    <Card x-chunk="dashboard-06-chunk-0" className="border-primary">
                         <CardHeader>
                         <CardTitle>Appels</CardTitle>
                         <CardDescription>
