@@ -24,13 +24,8 @@ export const routes : {
         link : "/calls",
     },
     {
-        title: "Products",
-        Icon: Package ,
-        link : "/products",
-    },
-    {
-        title: "Analytics",
+        title: "Stats",
         Icon: LineChart ,
-        link : "/analytics",
+        link : "/stats",
     },
 ]

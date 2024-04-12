@@ -92,15 +92,10 @@ function Navbar({ }: NavbarProps) {
                             <Link href="#">Dashboard</Link>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
+                    
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link href="#">Products</Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>All Products</BreadcrumbPage>
+                        <BreadcrumbPage>Calls</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>

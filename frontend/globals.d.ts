@@ -10,6 +10,15 @@ declare global {
         subject : string , 
         summary : string 
     }   
+    interface AgentStatistics {
+        /* in seconds */
+        averageCallDuration: number;
+        mostFrequentSubject: string;
+        /* in minutes */
+        uniqueCallersCount: number;
+        dailyTimeSaved: number;
+    }
+    
     interface DatabaseStrategy {
         connect(): void;
         disconnect(): void;
